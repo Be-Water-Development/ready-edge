@@ -23,6 +23,7 @@ export const BatteryFlowDiagram = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
+      // @ts-ignore
       setData((prev) => ({
         ...prev,
         arrayVoltage: (147 + Math.random()).toFixed(2),
