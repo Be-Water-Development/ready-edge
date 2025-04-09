@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./Navbar";
@@ -10,13 +10,13 @@ import { Setup } from "./Setup";
 import { Update } from "./Update";
 
 function App() {
-  const [count, setCount] = useState(0);
+  
 
   return (
     <Router>
       <Navbar />
       <Routes>
-        <Route path="/" element={<LiveView />} />
+        <Route path="/" element={<LiveView  />} />
         <Route path="/live-view/*" element={<LiveView />} />
         <Route path="/commands" element={<Commands />} />
         <Route path="/history" element={<History />} />
@@ -29,5 +29,3 @@ function App() {
 }
 
 export default App;
-
-

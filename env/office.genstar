@@ -1,0 +1,5 @@
+# -*- mode:sh -*-
+export MODBUS_HOST=md.morningstarcorp.com:51200
+export PROXY_HOST="$MODBUS_HOST"
+export WEBAPP_SHELL='embedded-old'
+export PRODUCT='genstar'

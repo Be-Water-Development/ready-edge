@@ -5,9 +5,32 @@ const getRandomValue = (min, max, decimals = 2) => {
 };
 
 export const SolarArray = () => {
+
+  const [xavyrVoltage, setXavyrVoltage] = useState(null);
+
+  useEffect(() => {
+    console.log('Fetching data...');
+    
+    const fetchData = async () => {
+      try {
+        const response = await fetch('http://localhost:3000/fetch-data');
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const result = await response.json();
+        setXavyrVoltage(result.data); // Assuming `data` is the key in the JSON response
+        console.log('Success:', result);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   const [data, setData] = useState({
     arrayCurrent: 5.6,
-    arrayVoltage: 147.3,
+    arrayVoltage: xavyrVoltage,
     genStarChargeCurrent: 15.1,
     genStarChargeAh: 36.0,
     genStarChargePower: 841,
@@ -15,12 +38,12 @@ export const SolarArray = () => {
     sweepVmp: 111.24,
     sweepPmax: 0,
   });
-
+console.log({xavyrVoltage})
   useEffect(() => {
     const interval = setInterval(() => {
       setData({
         arrayCurrent: getRandomValue(4, 7),
-        arrayVoltage: getRandomValue(140, 150),
+        arrayVoltage: xavyrVoltage,
         genStarChargeCurrent: getRandomValue(10, 20),
         genStarChargeAh: getRandomValue(30, 40),
         genStarChargePower: getRandomValue(800, 900, 0),
@@ -47,7 +70,7 @@ export const SolarArray = () => {
         </div>
         <div>
           <p className="text-gray-600">Array Voltage</p>
-          <p className="text-lg font-bold">{data.arrayVoltage} V</p>
+          <p className="text-lg font-bold">{xavyrVoltage && xavyrVoltage.split('=')[1].split('e')[0]} V</p>
         </div>
         <div>
           <p className="text-gray-600">GenStar Charge Current</p>
